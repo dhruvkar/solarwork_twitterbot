@@ -38,14 +38,6 @@ def authorize_twitter(consumer_key, consumer_secret, access_token, access_token_
     api = tweepy.API(auth)
     return api
 
-# Form a tweet from a list of jobs, gotten from the get_todays_jobs function, and form a list of tweets
-def form_tweets(job_list):
-    tweets = []
-    for x in job_list:
-        short_url = shorten_url(x[1])
-        tweet = x[3] + " is looking for a " + x[0] + " in " + x[2] + ". Apply here: " + short_url
-        tweets.append(tweet)
-    return tweets
 
 # Use psbe.co to shorten urls. Parse through xml response and extract shortened URL.
 def shorten_url(tweet_url):
@@ -56,13 +48,24 @@ def shorten_url(tweet_url):
     return shortened_url
 
 
+# Form a tweet from a list of jobs, gotten from the get_todays_jobs function, and form a list of tweets
+def form_tweets(job_list):
+    tweets = []
+    for x in job_list:
+        short_url = shorten_url(x[1])
+        tweet = x[3] + " is looking for a " + x[0] + " in " + x[2] + ". Apply here: " + short_url + " #solarjobs"
+        tweets.append(tweet)
+    return tweets
 
 api = authorize_twitter(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-d = get_date()
+d = get_date(1)
 tweets = form_tweets(get_jobs(SEIA_URL, d))
 
-'''
+
 for tweet in tweets:
-    api.update_status(status=tweet)
-    time.sleep(10)
-'''
+    try:
+        api.update_status(status=tweet)
+        time.sleep(10)
+    except:
+        pass
+

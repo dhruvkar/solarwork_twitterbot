@@ -1,0 +1,15 @@
+# Define app secrets, which can be found in the "Keys and Access Tokens section in https://app.twitter.com
+CONSUMER_KEY =
+CONSUMER_SECRET =
+ACCESS_TOKEN =
+ACCESS_TOKEN_SECRET =
+
+
+# Kimono Labs API endpoints
+SEIA_URL =
+BRIGHTCURRENT_URL =
+
+
+# Date formats
+SEIA_DATEFORMAT = 
+
